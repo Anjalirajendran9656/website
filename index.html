@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask AroundTally</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #4682B4;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+        }
+
+        .main-heading {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .sub-heading {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Body Styles */
+        .body-content {
+            text-align: center;
+            padding: 30px;
+            color: black;
+            font-size: 14px;
+        }
+
+        /* Bottom Login Section */
+        .login-section {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            padding: 30px;
+            flex-wrap: wrap;
+        }
+
+        .login-box {
+            background-color: white;
+            border: 2px solid #4682B4;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .login-box-header {
+            background-color: #4682B4;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+            text-align: center;
+            margin: -20px -20px 20px -20px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+        }
+
+        .btn {
+            background-color: #87CEEB;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .links a {
+            color: #4682B4;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 12px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Hidden sections */
+        .hidden {
+            display: none;
+        }
+
+        /* User Window Styles */
+        .user-window, .admin-window {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mode-message {
+            font-size: 11px;
+            font-weight: bold;
+            color: black;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+        }
+
+        .question-section, .answer-section {
+            margin-bottom: 20px;
+        }
+
+        .question-section label, .answer-section label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .question-input, .answer-display {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .answer-display {
+            min-height: 100px;
+            background-color: #f9f9f9;
+            resize: vertical;
+        }
+
+        .media-buttons {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .suggestion-box {
+            margin-top: 20px;
+        }
+
+        .suggestion-box textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            resize: vertical;
+        }
+
+        /* Admin Window Styles */
+        .department-selection {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .department-buttons {
+            margin-top: 10px;
+        }
+
+        .dept-btn {
+            background-color: #87CEEB;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+        }
+
+        .dept-btn.selected {
+            background-color: #4682B4;
+        }
+
+        .admin-controls {
+            margin-top: 20px;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .file-upload {
+            margin: 10px 0;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .logo {
+                position: static;
+                transform: none;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Landing Page -->
+    <div id="landing-page">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🌸</div>
+            <div class="main-heading">Ask AroundTally</div>
+            <div class="sub-heading">your complete tally support</div>
+        </div>
+
+        <!-- Body -->
+        <div class="body-content">
+            <p>This website is completely for internal purpose only</p>
+        </div>
+
+        <!-- Bottom Login Section -->
+        <div class="login-section">
+            <!-- User Login Box -->
+            <div class="login-box">
+                <div class="login-box-header">User</div>
+                <form id="user-login-form">
+                    <div class="form-group">
+                        <label for="user-id">User ID:</label>
+                        <input type="text" id="user-id" name="user-id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password">Password:</label>
+                        <input type="password" id="user-password" name="user-password" required>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                    <div id="user-error" class="error-message"></div>
+                </form>
+            </div>
+
+            <!-- Admin Login Box -->
+            <div class="login-box">
+                <div class="login-box-header">Admin</div>
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label for="admin-id">User ID:</label>
+                        <input type="text" id="admin-id" name="admin-id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-password">Password:</label>
+                        <input type="password" id="admin-password" name="admin-password" required>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                    <div id="admin-error" class="error-message"></div>
+                </form>
+                <div class="links">
+                    <a href="#" id="register-admin">Register as Admin</a>
+                    <a href="#" id="reset-password">Reset Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Window -->
+    <div id="user-window" class="hidden">
+        <div class="header">
+            <div class="logo">🌸</div>
+            <div class="main-heading">Ask AroundTally - User Mode</div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+        
+        <div class="user-window">
+            <div class="mode-message">
+                You are entered in user mode. You can not make any changes in the window
+            </div>
+
+            <div class="question-section">
+                <label for="user-question">Question:</label>
+                <input type="text" id="user-question" class="question-input" placeholder="Enter your question here...">
+            </div>
+
+            <div class="answer-section">
+                <label for="user-answer">Answer:</label>
+                <textarea id="user-answer" class="answer-display" readonly placeholder="Answer will appear here..."></textarea>
+            </div>
+
+            <div class="media-buttons">
+                <button class="btn" onclick="showImage()">Image</button>
+                <button class="btn" onclick="showYouTubeLink()">YouTube Link</button>
+            </div>
+
+            <div class="suggestion-box">
+                <label for="suggestion">Suggestion Box (if answer is incorrect or has issues):</label>
+                <textarea id="suggestion" placeholder="Enter your suggestions here..."></textarea>
+                <button class="btn" onclick="submitSuggestion()">Submit Suggestion</button>
+            </div>
+
+            <button class="btn" onclick="goBack()">Back</button>
+        </div>
+    </div>
+
+    <!-- Admin Window -->
+    <div id="admin-window" class="hidden">
+        <div class="header">
+            <div class="logo">🌸</div>
+            <div class="main-heading">Ask AroundTally - Admin Mode</div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="admin-window">
+            <div class="mode-message">
+                You are the complete owner of this website.
+            </div>
+
+            <div class="department-selection">
+                <label>Select your department:</label>
+                <div class="department-buttons">
+                    <button class="dept-btn" onclick="selectDepartment('Support')">Support</button>
+                    <button class="dept-btn" onclick="selectDepartment('Programmer')">Programmer</button>
+                    <button class="dept-btn" onclick="selectDepartment('Operations')">Operations</button>
+                </div>
+                <div id="dept-error" class="error-message"></div>
+            </div>
+
+            <div class="admin-controls">
+                <div class="control-row">
+                    <label for="admin-question" style="min-width: 80px;">Question:</label>
+                    <input type="text" id="admin-question" class="question-input" placeholder="Enter question here...">
+                    <button class="btn" onclick="exportData()">Export Data</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="admin-answer">Answer:</label>
+                    <textarea id="admin-answer" class="answer-display" placeholder="Enter answer here..."></textarea>
+                </div>
+
+                <div class="file-upload">
+                    <label>Upload Image (.jpg, .pdf, .jpeg):</label>
+                    <input type="file" id="image-upload" accept=".jpg,.jpeg,.pdf">
+                </div>
+
+                <div class="form-group">
+                    <label for="youtube-link">YouTube Link:</label>
+                    <input type="url" id="youtube-link" placeholder="Enter YouTube link here...">
+                </div>
+
+                <div class="media-buttons">
+                    <button class="btn" onclick="saveData()">Save</button>
+                    <button class="btn" onclick="editUpdate()">Edit & Update</button>
+                    <button class="btn" onclick="deleteData()">Delete</button>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <a href="#" onclick="showSuggestions()" style="color: #4682B4; text-decoration: none;">Suggestions from User</a>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <a href="#" onclick="showAdminPanel()" style="color: #4682B4; text-decoration: none;">Admin Panel</a>
+                </div>
+            </div>
+
+            <button class="btn" onclick="goBack()">Back</button>
+        </div>
+    </div>
+
+    <!-- Admin Registration Modal -->
+    <div id="admin-register-modal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 400px;">
+            <h3 style="text-align: center; margin-bottom: 20px;">Register as Admin</h3>
+            <form id="admin-register-form">
+                <div class="form-group">
+                    <label for="reg-admin-id">User ID:</label>
+                    <input type="text" id="reg-admin-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-admin-password">Password:</label>
+                    <input type="password" id="reg-admin-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-admin-email">Email:</label>
+                    <input type="email" id="reg-admin-email" required>
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn">Register</button>
+                    <button type="button" class="btn" onclick="closeModal('admin-register-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div id="reset-password-modal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 400px;">
+            <h3 style="text-align: center; margin-bottom: 20px;">Reset Password</h3>
+            <form id="reset-password-form">
+                <div class="form-group">
+                    <label for="reset-admin-id">Current User ID:</label>
+                    <input type="text" id="reset-admin-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="reset-current-password">Current Password:</label>
+                    <input type="password" id="reset-current-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="reset-new-password">New Password:</label>
+                    <input type="password" id="reset-new-password" required>
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn">Reset Password</button>
+                    <button type="button" class="btn" onclick="closeModal('reset-password-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Supabase JavaScript Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://eiaoxqwrgfbjnufjxaub.supabase.co'; // Replace with your actual Supabase URL
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpYW94cXdyZ2Ziam51Zmp4YXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMxNzc4ODcsImV4cCI6MjA2ODc1Mzg4N30.Nd0zd5q1Urjkur2zyaKtKEyfbHOPJPjU4ANsdi4UyNw'; // Replace with your actual Supabase anon key
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Global variables
+        let currentDepartment = '';
+        let currentUser = null;
+
+        // Supabase Database Functions
+        async function loginUser(userId, password) {
+            try {
+                const { data, error } = await supabase
+                    .from('user_credentials')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .eq('password', password)
+                    .single();
+                
+                if (error || !data) {
+                    throw new Error('Invalid credentials');
+                }
+                
+                currentUser = { id: data.id, user_id: data.user_id, type: 'user' };
+                return true;
+            } catch (error) {
+                console.error('User login error:', error);
+                return false;
+            }
+        }
+
+        async function loginAdmin(userId, password) {
+            try {
+                const { data, error } = await supabase
+                    .from('admin_credentials')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .eq('password', password)
+                    .single();
+                
+                if (error || !data) {
+                    throw new Error('Invalid credentials');
+                }
+                
+                currentUser = { id: data.id, user_id: data.user_id, type: 'admin' };
+                return true;
+            } catch (error) {
+                console.error('Admin login error:', error);
+                return false;
+            }
+        }
+
+        async function registerAdmin(userId, password, email) {
+            try {
+                const { data, error } = await supabase
+                    .from('admin_credentials')
+                    .insert([
+                        { user_id: userId, password: password, email: email }
+                    ]);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Admin registration error:', error);
+                return false;
+            }
+        }
+
+        async function resetAdminPassword(userId, currentPassword, newPassword) {
+            try {
+                // First verify current credentials
+                const loginSuccess = await loginAdmin(userId, currentPassword);
+                if (!loginSuccess) {
+                    throw new Error('Invalid current credentials');
+                }
+                
+                // Update password
+                const { data, error } = await supabase
+                    .from('admin_credentials')
+                    .update({ password: newPassword })
+                    .eq('user_id', userId);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Password reset error:', error);
+                return false;
+            }
+        }
+
+        async function saveQuestionAnswer(question, answer, imageUrl, youtubeLink, department) {
+            try {
+                const { data, error } = await supabase
+                    .from('questions_answers')
+                    .insert([
+                        {
+                            question: question,
+                            answer: answer,
+                            image_url: imageUrl,
+                            youtube_link: youtubeLink,
+                            department: department
+                        }
+                    ]);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Save Q&A error:', error);
+                return false;
+            }
+        }
+
+        async function searchAnswerInDB(question) {
+            try {
+                const { data, error } = await supabase
+                    .from('questions_answers')
+                    .select('*');
+                
+                if (error) {
+                    throw error;
+                }
+                
+                // Find best match using similarity
+                let bestMatch = null;
+                let bestScore = 0;
+                
+                data.forEach(item => {
+                    const similarity = calculateSimilarity(question.toLowerCase(), item.question.toLowerCase());
+                    if (similarity > bestScore && similarity > 0.3) {
+                        bestScore = similarity;
+                        bestMatch = item;
+                    }
+                });
+                
+                return bestMatch;
+            } catch (error) {
+                console.error('Search answer error:', error);
+                return null;
+            }
+        }
+
+        async function submitSuggestionToDB(suggestion) {
+            try {
+                const { data, error } = await supabase
+                    .from('suggestions')
+                    .insert([
+                        {
+                            suggestion: suggestion,
+                            user_id: currentUser ? currentUser.user_id : 'anonymous',
+                            created_at: new Date().toISOString()
+                        }
+                    ]);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Submit suggestion error:', error);
+                return false;
+            }
+        }
+
+        async function getSuggestions() {
+            try {
+                const { data, error } = await supabase
+                    .from('suggestions')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) {
+                    throw error;
+                }
+                
+                return data;
+            } catch (error) {
+                console.error('Get suggestions error:', error);
+                return [];
+            }
+        }
+
+        async function updateQuestionAnswer(oldQuestion, newQuestion, newAnswer, imageUrl, youtubeLink, department) {
+            try {
+                const { data, error } = await supabase
+                    .from('questions_answers')
+                    .update({
+                        question: newQuestion,
+                        answer: newAnswer,
+                        image_url: imageUrl,
+                        youtube_link: youtubeLink
+                    })
+                    .eq('question', oldQuestion)
+                    .eq('department', department);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Update Q&A error:', error);
+                return false;
+            }
+        }
+
+        async function deleteQuestionAnswer(question, department) {
+            try {
+                const { data, error } = await supabase
+                    .from('questions_answers')
+                    .delete()
+                    .eq('question', question)
+                    .eq('department', department);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Delete Q&A error:', error);
+                return false;
+            }
+        }
+
+        async function createUser(userId, password, email) {
+            try {
+                const { data, error } = await supabase
+                    .from('user_credentials')
+                    .insert([
+                        { user_id: userId, password: password, email: email }
+                    ]);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Create user error:', error);
+                return false;
+            }
+        }
+
+        async function getUsersList() {
+            try {
+                const { data, error } = await supabase
+                    .from('user_credentials')
+                    .select('id, user_id, email');
+                
+                if (error) {
+                    throw error;
+                }
+                
+                return data;
+            } catch (error) {
+                console.error('Get users list error:', error);
+                return [];
+            }
+        }
+
+        async function deleteUser(userId) {
+            try {
+                const { data, error } = await supabase
+                    .from('user_credentials')
+                    .delete()
+                    .eq('user_id', userId);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Delete user error:', error);
+                return false;
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('user-login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const userId = document.getElementById('user-id').value;
+            const password = document.getElementById('user-password').value;
+            
+            const loginSuccess = await loginUser(userId, password);
+            if (loginSuccess) {
+                showWindow('user-window');
+            } else {
+                document.getElementById('user-error').textContent = 'Incorrect user id or Password';
+            }
+        });
+
+        document.getElementById('admin-login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const adminId = document.getElementById('admin-id').value;
+            const password = document.getElementById('admin-password').value;
+            
+            const loginSuccess = await loginAdmin(adminId, password);
+            if (loginSuccess) {
+                showWindow('admin-window');
+            } else {
+                document.getElementById('admin-error').textContent = 'No Access';
+            }
+        });
+
+        document.getElementById('register-admin').addEventListener('click', function(e) {
+            e.preventDefault();
+            showModal('admin-register-modal');
+        });
+
+        document.getElementById('reset-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            showModal('reset-password-modal');
+        });
+
+        document.getElementById('admin-register-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const userId = document.getElementById('reg-admin-id').value;
+            const password = document.getElementById('reg-admin-password').value;
+            const email = document.getElementById('reg-admin-email').value;
+            
+            const registerSuccess = await registerAdmin(userId, password, email);
+            if (registerSuccess) {
+                alert('Admin registered successfully!');
+                closeModal('admin-register-modal');
+            } else {
+                alert('Registration failed. Please try again.');
+            }
+        });
+
+        document.getElementById('reset-password-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const userId = document.getElementById('reset-admin-id').value;
+            const currentPassword = document.getElementById('reset-current-password').value;
+            const newPassword = document.getElementById('reset-new-password').value;
+            
+            const resetSuccess = await resetAdminPassword(userId, currentPassword, newPassword);
+            if (resetSuccess) {
+                alert('Password reset successfully!');
+                closeModal('reset-password-modal');
+            } else {
+                alert('Invalid current credentials!');
+            }
+        });
+
+        // User question input with predictions
+        document.getElementById('user-question').addEventListener('input', async function() {
+            const question = this.value.toLowerCase();
+            if (question.length > 2) {
+                const result = await searchAnswerInDB(question);
+                if (result) {
+                    document.getElementById('user-answer').value = result.answer;
+                } else {
+                    document.getElementById('user-answer').value = 'No matching answer found.';
+                }
+            }
+        });
+
+        // Admin question input with predictions
+        document.getElementById('admin-question').addEventListener('input', function() {
+            const question = this.value.toLowerCase();
+            if (question.length > 2) {
+                showPredictions(question);
+            }
+        });
+
+        // Functions
+        function showWindow(windowId) {
+            document.getElementById('landing-page').className = 'hidden';
+            document.getElementById('user-window').className = 'hidden';
+            document.getElementById('admin-window').className = 'hidden';
+            document.getElementById(windowId).className = '';
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).className = '';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).className = 'hidden';
+        }
+
+        function logout() {
+            showWindow('landing-page');
+            currentUser = null;
+            // Clear forms
+            document.getElementById('user-error').textContent = '';
+            document.getElementById('admin-error').textContent = '';
+            document.getElementById('user-id').value = '';
+            document.getElementById('user-password').value = '';
+            document.getElementById('admin-id').value = '';
+            document.getElementById('admin-password').value = '';
+        }
+
+        function selectDepartment(dept) {
+            currentDepartment = dept.toLowerCase();
+            
+            // Update button styles
+            const buttons = document.querySelectorAll('.dept-btn');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            event.target.classList.add('selected');
+            
+            document.getElementById('dept-error').textContent = '';
+        }
+
+        function calculateSimilarity(str1, str2) {
+            const words1 = str1.split(' ');
+            const words2 = str2.split(' ');
+            let matches = 0;
+            
+            words1.forEach(word => {
+                if (words2.includes(word) && word.length > 2) {
+                    matches++;
+                }
+            });
+            
+            return matches / Math.max(words1.length, words2.length);
+        }
+
+        function showImage() {
+            alert('No data available');
+        }
+
+        function showYouTubeLink() {
+            alert('No data available');
+        }
+
+        async function submitSuggestion() {
+            const suggestion = document.getElementById('suggestion').value;
+            if (suggestion.trim()) {
+                const success = await submitSuggestionToDB(suggestion);
+                if (success) {
+                    alert('Suggestion submitted successfully!');
+                    document.getElementById('suggestion').value = '';
+                } else {
+                    alert('Failed to submit suggestion. Please try again.');
+                }
+            }
+        }
+
+        async function saveData() {
+            if (!currentDepartment) {
+                document.getElementById('dept-error').textContent = 'Please select your department';
+                return;
+            }
+            
+            const question = document.getElementById('admin-question').value;
+            const answer = document.getElementById('admin-answer').value;
+            const youtubeLink = document.getElementById('youtube-link').value;
+            
+            if (question && answer) {
+                const success = await saveQuestionAnswer(question, answer, null, youtubeLink, currentDepartment);
+                if (success) {
+                    alert('Data saved successfully!');
+                    
+                    // Clear fields
+                    document.getElementById('admin-question').value = '';
+                    document.getElementById('admin-answer').value = '';
+                    document.getElementById('youtube-link').value = '';
+                } else {
+                    alert('Failed to save data. Please try again.');
+                }
+            } else {
+                alert('Please enter both question and answer!');
+            }
+        }
+
+        async function editUpdate() {
+            if (!currentDepartment) {
+                document.getElementById('dept-error').textContent = 'Please select your department';
+                return;
+            }
+            
+            const question = document.getElementById('admin-question').value;
+            const answer = document.getElementById('admin-answer').value;
+            const youtubeLink = document.getElementById('youtube-link').value;
+            
+            const success = await updateQuestionAnswer(question, question, answer, null, youtubeLink, currentDepartment);
+            if (success) {
+                alert('Data updated successfully!');
+            } else {
+                alert('Question not found or update failed!');
+            }
+        }
+
+        async function deleteData() {
+            if (!currentDepartment) {
+                document.getElementById('dept-error').textContent = 'Please select your department';
+                return;
+            }
+            
+            const question = document.getElementById('admin-question').value;
+            
+            const success = await deleteQuestionAnswer(question, currentDepartment);
+            if (success) {
+                alert('Data deleted successfully!');
+                document.getElementById('admin-question').value = '';
+                document.getElementById('admin-answer').value = '';
+                document.getElementById('youtube-link').value = '';
+            } else {
+                alert('Question not found or delete failed!');
+            }
+        }
+
+        function exportData() {
+            alert('Export Data feature - In real implementation, this would open a file upload dialog for Excel files.');
+        }
+
+        async function showSuggestions() {
+            const suggestions = await getSuggestions();
+            if (suggestions.length === 0) {
+                alert('No suggestions available.');
+                return;
+            }
+            
+            let suggestionText = 'User Suggestions:\n\n';
+            suggestions.forEach((item, index) => {
+                const date = new Date(item.created_at).toLocaleString();
+                suggestionText += `${index + 1}. ${item.suggestion} (by: ${item.user_id} at ${date})\n\n`;
+            });
+            
+            alert(suggestionText);
+        }
+
+        function showAdminPanel() {
+            alert('Admin Panel - User management feature would be implemented here.');
+        }
+        function goBack() {
+            showWindow('landing-page');
+        }
+    </script>
+</body>
+</html>
