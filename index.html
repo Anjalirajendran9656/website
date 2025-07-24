@@ -1054,7 +1054,6 @@
             showWindow('landing-page');
         }
     </script>
-
 <div class="hidden" id="admin-user-panel" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
 <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 500px; max-height: 90%; overflow-y: auto;">
 <h3 style="text-align: center; margin-bottom: 20px;">Manage Users</h3>
@@ -1081,5 +1080,233 @@
 <ul id="user-list" style="list-style: none; padding-left: 0;"></ul>
 </div>
 </div>
-</body>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const adminQ = document.getElementById("admin-question");
+    const adminA = document.getElementById("admin-answer");
+    const ytAdmin = document.getElementById("youtube-link");
+    const predictionBoxAdmin = document.createElement("div");
+    predictionBoxAdmin.id = "admin-predictions";
+    predictionBoxAdmin.style.border = "1px solid #ccc";
+    predictionBoxAdmin.style.maxHeight = "100px";
+    predictionBoxAdmin.style.overflowY = "auto";
+    predictionBoxAdmin.style.background = "#fff";
+    predictionBoxAdmin.style.position = "absolute";
+    adminQ.insertAdjacentElement("afterend", predictionBoxAdmin);
+
+    adminQ.addEventListener("input", async () => {
+        const val = adminQ.value.toLowerCase().trim();
+        predictionBoxAdmin.innerHTML = "";
+        if (val.length > 2) {
+            const matches = await fetchPredictions(val);
+            matches.forEach(item => {
+                const div = document.createElement("div");
+                div.textContent = item.question;
+                div.style.cursor = "pointer";
+                div.style.padding = "4px";
+                div.onclick = () => {
+                    adminQ.value = item.question;
+                    adminA.value = item.answer || "";
+                    ytAdmin.value = item.youtube_link || "";
+                    predictionBoxAdmin.innerHTML = "";
+                };
+                predictionBoxAdmin.appendChild(div);
+            });
+        }
+    });
+
+    // User prediction
+    const userQ = document.getElementById("user-question");
+    const userA = document.getElementById("user-answer");
+    const ytUser = document.getElementById("user-youtube");
+    const userImg = document.getElementById("user-image");
+    const predictionBoxUser = document.createElement("div");
+    predictionBoxUser.id = "user-predictions";
+    predictionBoxUser.style.border = "1px solid #ccc";
+    predictionBoxUser.style.maxHeight = "100px";
+    predictionBoxUser.style.overflowY = "auto";
+    predictionBoxUser.style.background = "#fff";
+    predictionBoxUser.style.position = "absolute";
+    userQ.insertAdjacentElement("afterend", predictionBoxUser);
+
+    userQ.addEventListener("input", async () => {
+        const val = userQ.value.toLowerCase().trim();
+        predictionBoxUser.innerHTML = "";
+        if (val.length > 2) {
+            const matches = await fetchPredictions(val);
+            matches.forEach(item => {
+                const div = document.createElement("div");
+                div.textContent = item.question;
+                div.style.cursor = "pointer";
+                div.style.padding = "4px";
+                div.onclick = () => {
+                    userQ.value = item.question;
+                    userA.textContent = item.answer || "";
+                    ytUser.href = item.youtube_link || "#";
+                    if (item.image_url) userImg.src = item.image_url;
+                    predictionBoxUser.innerHTML = "";
+                };
+                predictionBoxUser.appendChild(div);
+            });
+        }
+    });
+
+    // Utility fetch
+    async function fetchPredictions(q) {
+        const { data, error } = await supabase
+            .from('questions_answers')
+            .select('*')
+            .ilike('question', `%${q}%`);
+        return data || [];
+    }
+
+    // Enable enter to next field
+    const inputs = document.querySelectorAll("input, textarea");
+    inputs.forEach((el, i) => {
+        el.addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                const next = inputs[i + 1];
+                if (next) next.focus();
+            }
+        });
+    });
+
+    // Clear fields on focus (simulate refresh)
+    adminQ.addEventListener("focus", () => {
+        adminA.value = '';
+        ytAdmin.value = '';
+    });
+});
+</script><script>
+document.addEventListener("DOMContentLoaded", () => {
+    const questionInput = document.getElementById("admin-question");
+    const answerInput = document.getElementById("admin-answer");
+    const ytInput = document.getElementById("youtube-link");
+
+    const predictionBox = document.createElement("div");
+    predictionBox.id = "prediction-list";
+    predictionBox.style.border = "1px solid #ccc";
+    predictionBox.style.position = "absolute";
+    predictionBox.style.backgroundColor = "#fff";
+    predictionBox.style.zIndex = "1000";
+    predictionBox.style.width = questionInput.offsetWidth + "px";
+    predictionBox.style.maxHeight = "150px";
+    predictionBox.style.overflowY = "auto";
+    predictionBox.style.display = "none";
+    predictionBox.style.fontSize = "14px";
+
+    questionInput.parentNode.insertBefore(predictionBox, questionInput.nextSibling);
+
+    questionInput.addEventListener("input", () => {
+        const query = questionInput.value.trim();
+        predictionBox.innerHTML = "";
+        if (query.length > 2) {
+            fetchSimilarQuestions(query);
+        } else {
+            predictionBox.style.display = "none";
+        }
+    });
+
+    async function fetchSimilarQuestions(query) {
+        try {
+            const result = await supabase
+                .from("questions_answers")
+                .select("*")
+                .ilike("question", `%${query}%`);
+
+            const data = result.data;
+
+            if (data && data.length > 0) {
+                predictionBox.innerHTML = "";
+                data.forEach(item => {
+                    const div = document.createElement("div");
+                    div.textContent = item.question;
+                    div.style.padding = "6px";
+                    div.style.borderBottom = "1px solid #eee";
+                    div.style.cursor = "pointer";
+                    div.addEventListener("click", () => {
+                        questionInput.value = item.question;
+                        answerInput.value = item.answer || "";
+                        ytInput.value = item.youtube_link || "";
+                        predictionBox.innerHTML = "";
+                        predictionBox.style.display = "none";
+                    });
+                    predictionBox.appendChild(div);
+                });
+                predictionBox.style.display = "block";
+            } else {
+                predictionBox.style.display = "none";
+            }
+        } catch (error) {
+            console.error("Error fetching predictions:", error);
+            predictionBox.style.display = "none";
+        }
+    }
+
+    document.addEventListener("click", (e) => {
+        if (!predictionBox.contains(e.target) && e.target !== questionInput) {
+            predictionBox.style.display = "none";
+        }
+    });
+});
+</script><script>
+document.addEventListener("DOMContentLoaded", () => {
+    const questionInput = document.getElementById("admin-question");
+    const answerInput = document.getElementById("admin-answer");
+    const ytInput = document.getElementById("youtube-link");
+    const predictionBox = document.createElement("div");
+    predictionBox.id = "prediction-list";
+    predictionBox.style.border = "1px solid #ccc";
+    predictionBox.style.position = "absolute";
+    predictionBox.style.backgroundColor = "#fff";
+    predictionBox.style.zIndex = "1000";
+    predictionBox.style.maxHeight = "150px";
+    predictionBox.style.overflowY = "auto";
+    predictionBox.style.display = "none";
+
+    questionInput.parentNode.insertBefore(predictionBox, questionInput.nextSibling);
+
+    questionInput.addEventListener("input", async () => {
+        const query = questionInput.value.trim();
+        if (query.length > 2) {
+            const { data, error } = await supabaseClient
+                .from("questions_answers")
+                .select("*")
+                .ilike("question", `%${query}%`);
+
+            predictionBox.innerHTML = "";
+            if (data && data.length > 0) {
+                data.forEach(item => {
+                    const div = document.createElement("div");
+                    div.textContent = item.question;
+                    div.style.padding = "6px";
+                    div.style.borderBottom = "1px solid #eee";
+                    div.style.cursor = "pointer";
+                    div.addEventListener("click", () => {
+                        questionInput.value = item.question;
+                        answerInput.value = item.answer || "";
+                        ytInput.value = item.youtube_link || "";
+                        questionInput.dataset.recordId = item.id;
+                        predictionBox.style.display = "none";
+                    });
+                    predictionBox.appendChild(div);
+                });
+                predictionBox.style.display = "block";
+            } else {
+                predictionBox.style.display = "none";
+            }
+        } else {
+            predictionBox.innerHTML = "";
+            predictionBox.style.display = "none";
+        }
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!predictionBox.contains(e.target) && e.target !== questionInput) {
+            predictionBox.style.display = "none";
+        }
+    });
+});
+</script></body>
 </html>
