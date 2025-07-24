@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ask AroundTally</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ask AroundTally</title>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -276,218 +277,193 @@
     </style>
 </head>
 <body>
-    <!-- Main Landing Page -->
-    <div id="landing-page">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo">🌸</div>
-            <div class="main-heading">Ask AroundTally</div>
-            <div class="sub-heading">your complete tally support</div>
-        </div>
-
-        <!-- Body -->
-        <div class="body-content">
-            <p>This website is completely for internal purpose only</p>
-        </div>
-
-        <!-- Bottom Login Section -->
-        <div class="login-section">
-            <!-- User Login Box -->
-            <div class="login-box">
-                <div class="login-box-header">User</div>
-                <form id="user-login-form">
-                    <div class="form-group">
-                        <label for="user-id">User ID:</label>
-                        <input autocomplete="username" id="user-id" name="user-id" required="" type="text"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="user-password">Password:</label>
-                        <input autocomplete="current-password" id="user-password" name="user-password" required="" type="password"/>
-                    </div>
-                    <button type="submit" class="btn">Login</button>
-                    <div id="user-error" class="error-message"></div>
-                </form>
-            </div>
-
-            <!-- Admin Login Box -->
-            <div class="login-box">
-                <div class="login-box-header">Admin</div>
-                <form id="admin-login-form">
-                    <div class="form-group">
-                        <label for="admin-id">User ID:</label>
-                        <input autocomplete="username" id="admin-id" name="admin-id" required="" type="text"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="admin-password">Password:</label>
-                        <input autocomplete="current-password" id="admin-password" name="admin-password" required="" type="password"/>
-                    </div>
-                    <button type="submit" class="btn">Login</button>
-                    <div id="admin-error" class="error-message"></div>
-                </form>
-                <div class="links">
-                    <a href="#" id="register-admin">Register as Admin</a>
-                    <a href="#" id="reset-password">Reset Password</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- User Window -->
-    <div id="user-window" class="hidden">
-        <div class="header">
-            <div class="logo">🌸</div>
-            <div class="main-heading">Ask AroundTally - User Mode</div>
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </div>
-        
-        <div class="user-window">
-            <div class="mode-message">
+<!-- Main Landing Page -->
+<div id="landing-page">
+<!-- Header -->
+<div class="header">
+<div class="logo">🌸</div>
+<div class="main-heading">Ask AroundTally</div>
+<div class="sub-heading">your complete tally support</div>
+</div>
+<!-- Body -->
+<div class="body-content">
+<p>This website is completely for internal purpose only</p>
+</div>
+<!-- Bottom Login Section -->
+<div class="login-section">
+<!-- User Login Box -->
+<div class="login-box">
+<div class="login-box-header">User</div>
+<form id="user-login-form">
+<div class="form-group">
+<label for="user-id">User ID:</label>
+<input autocomplete="username" id="user-id" name="user-id" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="user-password">Password:</label>
+<input autocomplete="current-password" id="user-password" name="user-password" required="" type="password"/>
+</div>
+<button class="btn" type="submit">Login</button>
+<div class="error-message" id="user-error"></div>
+</form>
+</div>
+<!-- Admin Login Box -->
+<div class="login-box">
+<div class="login-box-header">Admin</div>
+<form id="admin-login-form">
+<div class="form-group">
+<label for="admin-id">User ID:</label>
+<input autocomplete="username" id="admin-id" name="admin-id" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="admin-password">Password:</label>
+<input autocomplete="current-password" id="admin-password" name="admin-password" required="" type="password"/>
+</div>
+<button class="btn" type="submit">Login</button>
+<div class="error-message" id="admin-error"></div>
+</form>
+<div class="links">
+<a href="#" id="register-admin">Register as Admin</a>
+<a href="#" id="reset-password">Reset Password</a>
+</div>
+</div>
+</div>
+</div>
+<!-- User Window -->
+<div class="hidden" id="user-window">
+<div class="header">
+<div class="logo">🌸</div>
+<div class="main-heading">Ask AroundTally - User Mode</div>
+<button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+<div class="user-window">
+<div class="mode-message">
                 You are entered in user mode. You can not make any changes in the window
             </div>
-
-            <div class="question-section">
-                <label for="user-question">Question:</label>
-                <input type="text" id="user-question" class="question-input" placeholder="Enter your question here...">
-            </div>
-
-            <div class="answer-section">
-                <label for="user-answer">Answer:</label>
-                <textarea id="user-answer" class="answer-display" readonly placeholder="Answer will appear here..."></textarea>
-            </div>
-
-            <div class="media-buttons">
-                <button class="btn" onclick="showImage()">Image</button>
-                <button class="btn" onclick="showYouTubeLink()">YouTube Link</button>
-            </div>
-
-            <div class="suggestion-box">
-                <label for="suggestion">Suggestion Box (if answer is incorrect or has issues):</label>
-                <textarea id="suggestion" placeholder="Enter your suggestions here..."></textarea>
-                <button class="btn" onclick="submitSuggestion()">Submit Suggestion</button>
-            </div>
-
-            <button class="btn" onclick="goBack()">Back</button>
-        </div>
-    </div>
-
-    <!-- Admin Window -->
-    <div id="admin-window" class="hidden">
-        <div class="header">
-            <div class="logo">🌸</div>
-            <div class="main-heading">Ask AroundTally - Admin Mode</div>
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </div>
-
-        <div class="admin-window">
-            <div class="mode-message">
+<div class="question-section">
+<label for="user-question">Question:</label>
+<input class="question-input" id="user-question" placeholder="Enter your question here..." type="text"/>
+</div>
+<div class="answer-section">
+<label for="user-answer">Answer:</label>
+<textarea class="answer-display" id="user-answer" placeholder="Answer will appear here..." readonly=""></textarea>
+</div>
+<div class="media-buttons">
+<button class="btn" onclick="showImage()">Image</button>
+<button class="btn" onclick="showYouTubeLink()">YouTube Link</button>
+</div>
+<div class="suggestion-box">
+<label for="suggestion">Suggestion Box (if answer is incorrect or has issues):</label>
+<textarea id="suggestion" placeholder="Enter your suggestions here..."></textarea>
+<button class="btn" onclick="submitSuggestion()">Submit Suggestion</button>
+</div>
+<button class="btn" onclick="goBack()">Back</button>
+</div>
+</div>
+<!-- Admin Window -->
+<div class="hidden" id="admin-window">
+<div class="header">
+<div class="logo">🌸</div>
+<div class="main-heading">Ask AroundTally - Admin Mode</div>
+<button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+<div class="admin-window">
+<div class="mode-message">
                 You are the complete owner of this website.
             </div>
-
-            <div class="department-selection">
-                <label>Select your department:</label>
-                <div class="department-buttons">
-                    <button class="dept-btn" onclick="selectDepartment('Support')">Support</button>
-                    <button class="dept-btn" onclick="selectDepartment('Programmer')">Programmer</button>
-                    <button class="dept-btn" onclick="selectDepartment('Operations')">Operations</button>
-                </div>
-                <div id="dept-error" class="error-message"></div>
-            </div>
-
-            <div class="admin-controls">
-                <div class="control-row">
-                    <label for="admin-question" style="min-width: 80px;">Question:</label>
-                    <input type="text" id="admin-question" class="question-input" placeholder="Enter question here...">
-                    <button class="btn" onclick="exportData()">Export Data</button>
-                </div>
-
-                <div class="form-group">
-                    <label for="admin-answer">Answer:</label>
-                    <textarea id="admin-answer" class="answer-display" placeholder="Enter answer here..."></textarea>
-                </div>
-
-                <div class="file-upload">
-                    <label>Upload Image (.jpg, .pdf, .jpeg):</label>
-                    <input type="file" id="image-upload" accept=".jpg,.jpeg,.pdf">
-                </div>
-
-                <div class="form-group">
-                    <label for="youtube-link">YouTube Link:</label>
-                    <input type="url" id="youtube-link" placeholder="Enter YouTube link here...">
-                </div>
-
-                <div class="media-buttons">
-                    <button class="btn" onclick="saveData()">Save</button>
-                    <button class="btn" onclick="editUpdate()">Edit & Update</button>
-                    <button class="btn" onclick="deleteData()">Delete</button>
-                </div>
-
-                <div style="text-align: center; margin: 20px 0;">
-                    <a href="#" onclick="showSuggestions()" style="color: #4682B4; text-decoration: none;">Suggestions from User</a>
-                </div>
-
-                <div style="text-align: center; margin: 20px 0;">
-                    <a href="#" onclick="showAdminPanel()" style="color: #4682B4; text-decoration: none;">Admin Panel</a>
-                </div>
-            </div>
-
-            <button class="btn" onclick="goBack()">Back</button>
-        </div>
-    </div>
-
-    <!-- Admin Registration Modal -->
-    <div id="admin-register-modal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 400px;">
-            <h3 style="text-align: center; margin-bottom: 20px;">Register as Admin</h3>
-            <form id="admin-register-form">
-                <div class="form-group">
-                    <label for="reg-admin-id">User ID:</label>
-                    <input type="text" id="reg-admin-id" required>
-                </div>
-                <div class="form-group">
-                    <label for="reg-admin-password">Password:</label>
-                    <input type="password" id="reg-admin-password" required>
-                </div>
-                <div class="form-group">
-                    <label for="reg-admin-email">Email:</label>
-                    <input type="email" id="reg-admin-email" required>
-                </div>
-                <div style="text-align: center;">
-                    <button type="submit" class="btn">Register</button>
-                    <button type="button" class="btn" onclick="closeModal('admin-register-modal')">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Reset Password Modal -->
-    <div id="reset-password-modal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 400px;">
-            <h3 style="text-align: center; margin-bottom: 20px;">Reset Password</h3>
-            <form id="reset-password-form">
-                <div class="form-group">
-                    <label for="reset-admin-id">Current User ID:</label>
-                    <input type="text" id="reset-admin-id" required>
-                </div>
-                <div class="form-group">
-                    <label for="reset-current-password">Current Password:</label>
-                    <input type="password" id="reset-current-password" required>
-                </div>
-                <div class="form-group">
-                    <label for="reset-new-password">New Password:</label>
-                    <input type="password" id="reset-new-password" required>
-                </div>
-                <div style="text-align: center;">
-                    <button type="submit" class="btn">Reset Password</button>
-                    <button type="button" class="btn" onclick="closeModal('reset-password-modal')">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Supabase JavaScript Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <script>
+<div class="department-selection">
+<label>Select your department:</label>
+<div class="department-buttons">
+<button class="dept-btn" onclick="selectDepartment('Support')">Support</button>
+<button class="dept-btn" onclick="selectDepartment('Programmer')">Programmer</button>
+<button class="dept-btn" onclick="selectDepartment('Operations')">Operations</button>
+</div>
+<div class="error-message" id="dept-error"></div>
+</div>
+<div class="admin-controls">
+<div class="control-row">
+<label for="admin-question" style="min-width: 80px;">Question:</label>
+<input class="question-input" id="admin-question" placeholder="Enter question here..." type="text"/>
+<button class="btn" onclick="exportData()">Export Data</button>
+</div>
+<div class="form-group">
+<label for="admin-answer">Answer:</label>
+<textarea class="answer-display" id="admin-answer" placeholder="Enter answer here..."></textarea>
+</div>
+<div class="file-upload">
+<label>Upload Image (.jpg, .pdf, .jpeg):</label>
+<input accept=".jpg,.jpeg,.pdf" id="image-upload" type="file"/>
+</div>
+<div class="form-group">
+<label for="youtube-link">YouTube Link:</label>
+<input id="youtube-link" placeholder="Enter YouTube link here..." type="url"/>
+</div>
+<div class="media-buttons">
+<button class="btn" onclick="saveData()">Save</button>
+<button class="btn" onclick="editUpdate()">Edit &amp; Update</button>
+<button class="btn" onclick="deleteData()">Delete</button>
+</div>
+<div style="text-align: center; margin: 20px 0;">
+<a href="#" onclick="showSuggestions()" style="color: #4682B4; text-decoration: none;">Suggestions from User</a>
+</div>
+<div style="text-align: center; margin: 20px 0;">
+<a href="#" onclick="showAdminPanel()" style="color: #4682B4; text-decoration: none;">Admin Panel</a>
+</div>
+</div>
+<button class="btn" onclick="goBack()">Back</button>
+</div>
+</div>
+<!-- Admin Registration Modal -->
+<div class="hidden" id="admin-register-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 400px;">
+<h3 style="text-align: center; margin-bottom: 20px;">Register as Admin</h3>
+<form id="admin-register-form">
+<div class="form-group">
+<label for="reg-admin-id">User ID:</label>
+<input id="reg-admin-id" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="reg-admin-password">Password:</label>
+<input id="reg-admin-password" required="" type="password"/>
+</div>
+<div class="form-group">
+<label for="reg-admin-email">Email:</label>
+<input id="reg-admin-email" required="" type="email"/>
+</div>
+<div style="text-align: center;">
+<button class="btn" type="submit">Register</button>
+<button class="btn" onclick="closeModal('admin-register-modal')" type="button">Cancel</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Reset Password Modal -->
+<div class="hidden" id="reset-password-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 400px;">
+<h3 style="text-align: center; margin-bottom: 20px;">Reset Password</h3>
+<form id="reset-password-form">
+<div class="form-group">
+<label for="reset-admin-id">Current User ID:</label>
+<input id="reset-admin-id" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="reset-current-password">Current Password:</label>
+<input id="reset-current-password" required="" type="password"/>
+</div>
+<div class="form-group">
+<label for="reset-new-password">New Password:</label>
+<input id="reset-new-password" required="" type="password"/>
+</div>
+<div style="text-align: center;">
+<button class="btn" type="submit">Reset Password</button>
+<button class="btn" onclick="closeModal('reset-password-modal')" type="button">Cancel</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Supabase JavaScript Client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
         // Supabase Configuration
         const SUPABASE_URL = 'https://eiaoxqwrgfbjnufjxaub.supabase.co'; // Replace with your actual Supabase URL
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpYW94cXdyZ2Ziam51Zmp4YXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMxNzc4ODcsImV4cCI6MjA2ODc1Mzg4N30.Nd0zd5q1Urjkur2zyaKtKEyfbHOPJPjU4ANsdi4UyNw'; // Replace with your actual Supabase anon key
@@ -1025,7 +1001,48 @@
         }
 
         function showAdminPanel() {
-            alert('Admin Panel - User management feature would be implemented here.');
+            const html = `
+                <div style='padding: 20px;'>
+                    <h3>Add New User</h3>
+                    <form id='create-user-form'>
+                        <div class='form-group'>
+                            <label>User ID:</label>
+                            <input type='text' id='new-user-id' required autocomplete='username' />
+                        </div>
+                        <div class='form-group'>
+                            <label>Password:</label>
+                            <input type='password' id='new-user-password' required autocomplete='new-password' />
+                        </div>
+                        <div class='form-group'>
+                            <label>Email:</label>
+                            <input type='email' id='new-user-email' required autocomplete='email' />
+                        </div>
+                        <button type='submit' class='btn'>Create User</button>
+                    </form>
+                </div>
+            `;
+            const container = document.createElement('div');
+            container.innerHTML = html;
+            const adminWindow = document.querySelector('#admin-window .admin-window');
+            const existing = document.getElementById('admin-user-panel');
+            if (existing) existing.remove();
+            container.id = 'admin-user-panel';
+            adminWindow.appendChild(container);
+
+            document.getElementById('create-user-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const userId = document.getElementById('new-user-id').value;
+                const password = document.getElementById('new-user-password').value;
+                const email = document.getElementById('new-user-email').value;
+
+                const result = await createUser(userId, password, email);
+                if (result) {
+                    alert('User created successfully!');
+                    document.getElementById('create-user-form').reset();
+                } else {
+                    alert('Failed to create user.');
+                }
+            });
         }
         function goBack() {
             showWindow('landing-page');
