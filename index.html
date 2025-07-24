@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Ask AroundTally</title>
-<style>
-        * {
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Ask AroundTally
+  </title>
+  <style>
+   * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -274,197 +275,313 @@
                 margin-bottom: 10px;
             }
         }
-    </style>
-</head>
-<body>
-<!-- Main Landing Page -->
-<div id="landing-page">
-<!-- Header -->
-<div class="header">
-<div class="logo">🌸</div>
-<div class="main-heading">Ask AroundTally</div>
-<div class="sub-heading">your complete tally support</div>
-</div>
-<!-- Body -->
-<div class="body-content">
-<p>This website is completely for internal purpose only</p>
-</div>
-<!-- Bottom Login Section -->
-<div class="login-section">
-<!-- User Login Box -->
-<div class="login-box">
-<div class="login-box-header">User</div>
-<form id="user-login-form">
-<div class="form-group">
-<label for="user-id">User ID:</label>
-<input autocomplete="username" id="user-id" name="user-id" required="" type="text"/>
-</div>
-<div class="form-group">
-<label for="user-password">Password:</label>
-<input autocomplete="current-password" id="user-password" name="user-password" required="" type="password"/>
-</div>
-<button class="btn" type="submit">Login</button>
-<div class="error-message" id="user-error"></div>
-</form>
-</div>
-<!-- Admin Login Box -->
-<div class="login-box">
-<div class="login-box-header">Admin</div>
-<form id="admin-login-form">
-<div class="form-group">
-<label for="admin-id">User ID:</label>
-<input autocomplete="username" id="admin-id" name="admin-id" required="" type="text"/>
-</div>
-<div class="form-group">
-<label for="admin-password">Password:</label>
-<input autocomplete="current-password" id="admin-password" name="admin-password" required="" type="password"/>
-</div>
-<button class="btn" type="submit">Login</button>
-<div class="error-message" id="admin-error"></div>
-</form>
-<div class="links">
-<a href="#" id="register-admin">Register as Admin</a>
-<a href="#" id="reset-password">Reset Password</a>
-</div>
-</div>
-</div>
-</div>
-<!-- User Window -->
-<div class="hidden" id="user-window">
-<div class="header">
-<div class="logo">🌸</div>
-<div class="main-heading">Ask AroundTally - User Mode</div>
-<button class="logout-btn" onclick="logout()">Logout</button>
-</div>
-<div class="user-window">
-<div class="mode-message">
-                You are entered in user mode. You can not make any changes in the window
-            </div>
-<div class="question-section">
-<label for="user-question">Question:</label>
-<input class="question-input" id="user-question" placeholder="Enter your question here..." type="text"/>
-</div>
-<div class="answer-section">
-<label for="user-answer">Answer:</label>
-<textarea class="answer-display" id="user-answer" placeholder="Answer will appear here..." readonly=""></textarea>
-</div>
-<div class="media-buttons">
-<button class="btn" onclick="showImage()">Image</button>
-<button class="btn" onclick="showYouTubeLink()">YouTube Link</button>
-</div>
-<div class="suggestion-box">
-<label for="suggestion">Suggestion Box (if answer is incorrect or has issues):</label>
-<textarea id="suggestion" placeholder="Enter your suggestions here..."></textarea>
-<button class="btn" onclick="submitSuggestion()">Submit Suggestion</button>
-</div>
-<button class="btn" onclick="goBack()">Back</button>
-</div>
-</div>
-<!-- Admin Window -->
-<div class="hidden" id="admin-window">
-<div class="header">
-<div class="logo">🌸</div>
-<div class="main-heading">Ask AroundTally - Admin Mode</div>
-<button class="logout-btn" onclick="logout()">Logout</button>
-</div>
-<div class="admin-window">
-<div class="mode-message">
-                You are the complete owner of this website.
-            </div>
-<div class="department-selection">
-<label>Select your department:</label>
-<div class="department-buttons">
-<button class="dept-btn" onclick="selectDepartment('Support')">Support</button>
-<button class="dept-btn" onclick="selectDepartment('Programmer')">Programmer</button>
-<button class="dept-btn" onclick="selectDepartment('Operations')">Operations</button>
-</div>
-<div class="error-message" id="dept-error"></div>
-</div>
-<div class="admin-controls">
-<div class="control-row">
-<label for="admin-question" style="min-width: 80px;">Question:</label>
-<input class="question-input" id="admin-question" placeholder="Enter question here..." type="text"/>
-<button class="btn" onclick="exportData()">Export Data</button>
-</div>
-<div class="form-group">
-<label for="admin-answer">Answer:</label>
-<textarea class="answer-display" id="admin-answer" placeholder="Enter answer here..."></textarea>
-</div>
-<div class="file-upload">
-<label>Upload Image (.jpg, .pdf, .jpeg):</label>
-<input accept=".jpg,.jpeg,.pdf" id="image-upload" type="file"/>
-</div>
-<div class="form-group">
-<label for="youtube-link">YouTube Link:</label>
-<input id="youtube-link" placeholder="Enter YouTube link here..." type="url"/>
-</div>
-<div class="media-buttons">
-<button class="btn" onclick="saveData()">Save</button>
-<button class="btn" onclick="editUpdate()">Edit &amp; Update</button>
-<button class="btn" onclick="deleteData()">Delete</button>
-</div>
-<div style="text-align: center; margin: 20px 0;">
-<a href="#" onclick="showSuggestions()" style="color: #4682B4; text-decoration: none;">Suggestions from User</a>
-</div>
-<div style="text-align: center; margin: 20px 0;">
-<a href="#" onclick="showAdminPanel()" style="color: #4682B4; text-decoration: none;">Admin Panel</a>
-</div>
-</div>
-<button class="btn" onclick="goBack()">Back</button>
-</div>
-</div>
-<!-- Admin Registration Modal -->
-<div class="hidden" id="admin-register-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
-<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 400px;">
-<h3 style="text-align: center; margin-bottom: 20px;">Register as Admin</h3>
-<form id="admin-register-form">
-<div class="form-group">
-<label for="reg-admin-id">User ID:</label>
-<input id="reg-admin-id" required="" type="text"/>
-</div>
-<div class="form-group">
-<label for="reg-admin-password">Password:</label>
-<input id="reg-admin-password" required="" type="password"/>
-</div>
-<div class="form-group">
-<label for="reg-admin-email">Email:</label>
-<input id="reg-admin-email" required="" type="email"/>
-</div>
-<div style="text-align: center;">
-<button class="btn" type="submit">Register</button>
-<button class="btn" onclick="closeModal('admin-register-modal')" type="button">Cancel</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Reset Password Modal -->
-<div class="hidden" id="reset-password-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
-<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 400px;">
-<h3 style="text-align: center; margin-bottom: 20px;">Reset Password</h3>
-<form id="reset-password-form">
-<div class="form-group">
-<label for="reset-admin-id">Current User ID:</label>
-<input id="reset-admin-id" required="" type="text"/>
-</div>
-<div class="form-group">
-<label for="reset-current-password">Current Password:</label>
-<input id="reset-current-password" required="" type="password"/>
-</div>
-<div class="form-group">
-<label for="reset-new-password">New Password:</label>
-<input id="reset-new-password" required="" type="password"/>
-</div>
-<div style="text-align: center;">
-<button class="btn" type="submit">Reset Password</button>
-<button class="btn" onclick="closeModal('reset-password-modal')" type="button">Cancel</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Supabase JavaScript Client -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-        // Supabase Configuration
+  </style>
+ </head>
+ <body>
+  <!-- Main Landing Page -->
+  <div id="landing-page">
+   <!-- Header -->
+   <div class="header">
+    <div class="logo">
+     🌸
+    </div>
+    <div class="main-heading">
+     Ask AroundTally
+    </div>
+    <div class="sub-heading">
+     your complete tally support
+    </div>
+   </div>
+   <!-- Body -->
+   <div class="body-content">
+    <p>
+     This website is completely for internal purpose only
+    </p>
+   </div>
+   <!-- Bottom Login Section -->
+   <div class="login-section">
+    <!-- User Login Box -->
+    <div class="login-box">
+     <div class="login-box-header">
+      User
+     </div>
+     <form id="user-login-form">
+      <div class="form-group">
+       <label for="user-id">
+        User ID:
+       </label>
+       <input autocomplete="username" id="user-id" name="user-id" required="" type="text"/>
+      </div>
+      <div class="form-group">
+       <label for="user-password">
+        Password:
+       </label>
+       <input autocomplete="current-password" id="user-password" name="user-password" required="" type="password"/>
+      </div>
+      <button class="btn" type="submit">
+       Login
+      </button>
+      <div class="error-message" id="user-error">
+      </div>
+     </form>
+    </div>
+    <!-- Admin Login Box -->
+    <div class="login-box">
+     <div class="login-box-header">
+      Admin
+     </div>
+     <form id="admin-login-form">
+      <div class="form-group">
+       <label for="admin-id">
+        User ID:
+       </label>
+       <input autocomplete="username" id="admin-id" name="admin-id" required="" type="text"/>
+      </div>
+      <div class="form-group">
+       <label for="admin-password">
+        Password:
+       </label>
+       <input autocomplete="current-password" id="admin-password" name="admin-password" required="" type="password"/>
+      </div>
+      <button class="btn" type="submit">
+       Login
+      </button>
+      <div class="error-message" id="admin-error">
+      </div>
+     </form>
+     <div class="links">
+      <a href="#" id="register-admin">
+       Register as Admin
+      </a>
+      <a href="#" id="reset-password">
+       Reset Password
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- User Window -->
+  <div class="hidden" id="user-window">
+   <div class="header">
+    <div class="logo">
+     🌸
+    </div>
+    <div class="main-heading">
+     Ask AroundTally - User Mode
+    </div>
+    <button class="logout-btn" onclick="logout()">
+     Logout
+    </button>
+   </div>
+   <div class="user-window">
+    <div class="mode-message">
+     You are entered in user mode. You can not make any changes in the window
+    </div>
+    <div class="question-section">
+     <label for="user-question">
+      Question:
+     </label>
+     <input class="question-input" id="user-question" placeholder="Enter your question here..." type="text"/>
+    </div>
+    <div class="answer-section">
+     <label for="user-answer">
+      Answer:
+     </label>
+     <textarea class="answer-display" id="user-answer" placeholder="Answer will appear here..." readonly=""></textarea>
+    </div>
+    <div class="media-buttons">
+     <button class="btn" onclick="showImage()">
+      Image
+     </button>
+     <button class="btn" onclick="showYouTubeLink()">
+      YouTube Link
+     </button>
+    </div>
+    <div class="suggestion-box">
+     <label for="suggestion">
+      Suggestion Box (if answer is incorrect or has issues):
+     </label>
+     <textarea id="suggestion" placeholder="Enter your suggestions here..."></textarea>
+     <button class="btn" onclick="submitSuggestion()">
+      Submit Suggestion
+     </button>
+    </div>
+    <button class="btn" onclick="goBack()">
+     Back
+    </button>
+   </div>
+  </div>
+  <!-- Admin Window -->
+  <div class="hidden" id="admin-window">
+   <div class="header">
+    <div class="logo">
+     🌸
+    </div>
+    <div class="main-heading">
+     Ask AroundTally - Admin Mode
+    </div>
+    <button class="logout-btn" onclick="logout()">
+     Logout
+    </button>
+   </div>
+   <div class="admin-window">
+    <div class="mode-message">
+     You are the complete owner of this website.
+    </div>
+    <div class="department-selection">
+     <label>
+      Select your department:
+     </label>
+     <div class="department-buttons">
+      <button class="dept-btn" onclick="selectDepartment('Support')">
+       Support
+      </button>
+      <button class="dept-btn" onclick="selectDepartment('Programmer')">
+       Programmer
+      </button>
+      <button class="dept-btn" onclick="selectDepartment('Operations')">
+       Operations
+      </button>
+     </div>
+     <div class="error-message" id="dept-error">
+     </div>
+    </div>
+    <div class="admin-controls">
+     <div class="control-row">
+      <label for="admin-question" style="min-width: 80px;">
+       Question:
+      </label>
+      <input class="question-input" id="admin-question" placeholder="Enter question here..." type="text"/>
+   
+      <div class="file-upload" id="excel-upload-section">
+       <input accept=".xlsx" id="excel-file" type="file"/>
+       <button class="btn" id="upload-excel-btn">
+        Upload Excel to Supabase
+       </button>
+      </div>
+     </div>
+     <div class="form-group">
+      <label for="admin-answer">
+       Answer:
+      </label>
+      <textarea class="answer-display" id="admin-answer" placeholder="Enter answer here..."></textarea>
+     </div>
+     <div class="file-upload">
+      <label>
+       Upload Image (.jpg, .pdf, .jpeg):
+      </label>
+      <input accept=".jpg,.jpeg,.pdf" id="image-upload" type="file"/>
+     </div>
+     <div class="form-group">
+      <label for="youtube-link">
+       YouTube Link:
+      </label>
+      <input id="youtube-link" placeholder="Enter YouTube link here..." type="url"/>
+     </div>
+     <div class="media-buttons">
+      <button class="btn" onclick="saveData()">
+       Save
+      </button>
+      <button class="btn" onclick="editUpdate()">
+       Edit &amp; Update
+      </button>
+      <button class="btn" onclick="deleteData()">
+       Delete
+      </button>
+     </div>
+     <div style="text-align: center; margin: 20px 0;">
+      <a href="#" onclick="showSuggestions()" style="color: #4682B4; text-decoration: none;">
+       Suggestions from User
+      </a>
+     </div>
+     <div style="text-align: center; margin: 20px 0;">
+      <a href="#" onclick="showAdminPanel()" style="color: #4682B4; text-decoration: none;">
+       Admin Panel
+      </a>
+     </div>
+    </div>
+    <button class="btn" onclick="goBack()">
+     Back
+    </button>
+   </div>
+  </div>
+  <!-- Admin Registration Modal -->
+  <div class="hidden" id="admin-register-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+   <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 400px;">
+    <h3 style="text-align: center; margin-bottom: 20px;">
+     Register as Admin
+    </h3>
+    <form id="admin-register-form">
+     <div class="form-group">
+      <label for="reg-admin-id">
+       User ID:
+      </label>
+      <input id="reg-admin-id" required="" type="text"/>
+     </div>
+     <div class="form-group">
+      <label for="reg-admin-password">
+       Password:
+      </label>
+      <input id="reg-admin-password" required="" type="password"/>
+     </div>
+     <div class="form-group">
+      <label for="reg-admin-email">
+       Email:
+      </label>
+      <input id="reg-admin-email" required="" type="email"/>
+     </div>
+     <div style="text-align: center;">
+      <button class="btn" type="submit">
+       Register
+      </button>
+      <button class="btn" onclick="closeModal('admin-register-modal')" type="button">
+       Cancel
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <!-- Reset Password Modal -->
+  <div class="hidden" id="reset-password-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+   <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 400px;">
+    <h3 style="text-align: center; margin-bottom: 20px;">
+     Reset Password
+    </h3>
+    <form id="reset-password-form">
+     <div class="form-group">
+      <label for="reset-admin-id">
+       Current User ID:
+      </label>
+      <input id="reset-admin-id" required="" type="text"/>
+     </div>
+     <div class="form-group">
+      <label for="reset-current-password">
+       Current Password:
+      </label>
+      <input id="reset-current-password" required="" type="password"/>
+     </div>
+     <div class="form-group">
+      <label for="reset-new-password">
+       New Password:
+      </label>
+      <input id="reset-new-password" required="" type="password"/>
+     </div>
+     <div style="text-align: center;">
+      <button class="btn" type="submit">
+       Reset Password
+      </button>
+      <button class="btn" onclick="closeModal('reset-password-modal')" type="button">
+       Cancel
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <!-- Supabase JavaScript Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+  <script>
+   // Supabase Configuration
         const SUPABASE_URL = 'https://eiaoxqwrgfbjnufjxaub.supabase.co'; // Replace with your actual Supabase URL
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpYW94cXdyZ2Ziam51Zmp4YXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMxNzc4ODcsImV4cCI6MjA2ODc1Mzg4N30.Nd0zd5q1Urjkur2zyaKtKEyfbHOPJPjU4ANsdi4UyNw'; // Replace with your actual Supabase anon key
         const { createClient } = supabase;
@@ -980,9 +1097,7 @@
             }
         }
 
-        function exportData() {
-            alert('Export Data feature - In real implementation, this would open a file upload dialog for Excel files.');
-        }
+     
 
         async function showSuggestions() {
             const suggestions = await getSuggestions();
@@ -1053,35 +1168,50 @@
         function goBack() {
             showWindow('landing-page');
         }
-    </script>
-<div class="hidden" id="admin-user-panel" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
-<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 500px; max-height: 90%; overflow-y: auto;">
-<h3 style="text-align: center; margin-bottom: 20px;">Manage Users</h3>
-<form id="create-user-form">
-<div class="form-group">
-<label for="new-user-id">User ID:</label>
-<input autocomplete="username" id="new-user-id" required="" type="text"/>
-</div>
-<div class="form-group">
-<label for="new-user-password">Password:</label>
-<input autocomplete="new-password" id="new-user-password" required="" type="password"/>
-</div>
-<div class="form-group">
-<label for="new-user-email">Email:</label>
-<input autocomplete="email" id="new-user-email" required="" type="email"/>
-</div>
-<div style="text-align: center;">
-<button class="btn" type="submit">Create User</button>
-<button class="btn" onclick="closeModal('admin-user-panel')" type="button">Close</button>
-</div>
-</form>
-<hr style="margin: 20px 0;"/>
-<h4>User List</h4>
-<ul id="user-list" style="list-style: none; padding-left: 0;"></ul>
-</div>
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+  </script>
+  <div class="hidden" id="admin-user-panel" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+   <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 500px; max-height: 90%; overflow-y: auto;">
+    <h3 style="text-align: center; margin-bottom: 20px;">
+     Manage Users
+    </h3>
+    <form id="create-user-form">
+     <div class="form-group">
+      <label for="new-user-id">
+       User ID:
+      </label>
+      <input autocomplete="username" id="new-user-id" required="" type="text"/>
+     </div>
+     <div class="form-group">
+      <label for="new-user-password">
+       Password:
+      </label>
+      <input autocomplete="new-password" id="new-user-password" required="" type="password"/>
+     </div>
+     <div class="form-group">
+      <label for="new-user-email">
+       Email:
+      </label>
+      <input autocomplete="email" id="new-user-email" required="" type="email"/>
+     </div>
+     <div style="text-align: center;">
+      <button class="btn" type="submit">
+       Create User
+      </button>
+      <button class="btn" onclick="closeModal('admin-user-panel')" type="button">
+       Close
+      </button>
+     </div>
+    </form>
+    <hr style="margin: 20px 0;"/>
+    <h4>
+     User List
+    </h4>
+    <ul id="user-list" style="list-style: none; padding-left: 0;">
+    </ul>
+   </div>
+  </div>
+  <script>
+   document.addEventListener("DOMContentLoaded", () => {
     const adminQ = document.getElementById("admin-question");
     const adminA = document.getElementById("admin-answer");
     const ytAdmin = document.getElementById("youtube-link");
@@ -1178,8 +1308,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ytAdmin.value = '';
     });
 });
-</script><script>
-document.addEventListener("DOMContentLoaded", () => {
+  </script>
+  <script>
+   document.addEventListener("DOMContentLoaded", () => {
     const questionInput = document.getElementById("admin-question");
     const answerInput = document.getElementById("admin-answer");
     const ytInput = document.getElementById("youtube-link");
@@ -1250,8 +1381,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-</script><script>
-document.addEventListener("DOMContentLoaded", () => {
+  </script>
+  <script>
+   document.addEventListener("DOMContentLoaded", () => {
     const questionInput = document.getElementById("admin-question");
     const answerInput = document.getElementById("admin-answer");
     const ytInput = document.getElementById("youtube-link");
@@ -1308,5 +1440,37 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-</script></body>
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js">
+  </script>
+  <script>
+   document.getElementById("upload-excel-btn").addEventListener("click", async () => {
+    const fileInput = document.getElementById("excel-file");
+    if (!fileInput.files.length) {
+        alert("Please select an Excel file first.");
+        return;
+    }
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = async function (e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+        for (const row of jsonData) {
+            const { question, answer, image_url, youtube_link } = row;
+            if (question && answer) {
+                await supabaseClient.from("questions_answers").insert([{
+                    question, answer, image_url, youtube_link, department: currentDepartment
+                }]);
+            }
+        }
+        alert("Upload completed!");
+    };
+    reader.readAsArrayBuffer(file);
+});
+  </script>
+ </body>
 </html>
