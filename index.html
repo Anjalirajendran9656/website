@@ -502,7 +502,7 @@
         // Supabase Database Functions
         async function loginUser(userId, password) {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('user_credentials')
                     .select('*')
                     .eq('user_id', userId)
@@ -523,7 +523,7 @@
 
         async function loginAdmin(userId, password) {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('admin_credentials')
                     .select('*')
                     .eq('user_id', userId)
@@ -544,7 +544,7 @@
 
         async function registerAdmin(userId, password, email) {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('admin_credentials')
                     .insert([
                         { user_id: userId, password: password, email: email }
@@ -570,7 +570,7 @@
                 }
                 
                 // Update password
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('admin_credentials')
                     .update({ password: newPassword })
                     .eq('user_id', userId);
@@ -588,7 +588,7 @@
 
         async function saveQuestionAnswer(question, answer, imageUrl, youtubeLink, department) {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('questions_answers')
                     .insert([
                         {
@@ -613,7 +613,7 @@
 
         async function searchAnswerInDB(question) {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('questions_answers')
                     .select('*');
                 
@@ -642,7 +642,7 @@
 
         async function submitSuggestionToDB(suggestion) {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('suggestions')
                     .insert([
                         {
@@ -665,7 +665,7 @@
 
         async function getSuggestions() {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('suggestions')
                     .select('*')
                     .order('created_at', { ascending: false });
@@ -683,7 +683,7 @@
 
         async function updateQuestionAnswer(oldQuestion, newQuestion, newAnswer, imageUrl, youtubeLink, department) {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('questions_answers')
                     .update({
                         question: newQuestion,
@@ -707,7 +707,7 @@
 
         async function deleteQuestionAnswer(question, department) {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('questions_answers')
                     .delete()
                     .eq('question', question)
@@ -726,7 +726,7 @@
 
         async function createUser(userId, password, email) {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('user_credentials')
                     .insert([
                         { user_id: userId, password: password, email: email }
@@ -745,7 +745,7 @@
 
         async function getUsersList() {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('user_credentials')
                     .select('id, user_id, email');
                 
@@ -762,7 +762,7 @@
 
         async function deleteUser(userId) {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('user_credentials')
                     .delete()
                     .eq('user_id', userId);
